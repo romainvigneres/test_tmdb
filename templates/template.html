@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Movies</title>
+</head>
+<body>
+    <div class="container">
+        {% for mov_sub_group in movies %}
+        <div class="card-group">
+            {% for mov in mov_sub_group %}
+            {% if mov %}
+            <div class="card">
+                <img src="https://www.themoviedb.org/t/p/w220_and_h330_face{{ mov['poster_path'] }}" class="img-thumbnail">
+                <div class="card-body">
+                    <h5 class="card-title">{{ mov['title'] }} <span class="badge bg-{% if mov['vote_average'] < 4 %}danger{% elif mov['vote_average'] < 7 %}warning{% else %}success{% endif %}">{{ mov['vote_average'] }}</span></h5>
+                    {% if mov['original_title'] != mov['title'] %}{{ mov['original_title'] }}{% endif %}
+                    <div>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ mov['id'] }}" aria-expanded="false" aria-controls="collapseExample">
+                        Résumé
+                      </button>
+                      <a class="btn btn-primary" type="button" href="https://www.themoviedb.org/movie/{{ mov['id'] }}">Lien fiche</a>
+                    </div>
+                      <div class="collapse" id="collapse{{ mov['id'] }}">
+                        <div class="card card-body">
+                            {{ mov['overview'] }}
+                        </div>
+                      </div>
+                      <div>{% for genre in mov['genres'] %}<span class="badge bg-secondary">{{ genre }}</span> {% endfor %}</div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ mov['release_date'] }}</small>{% if mov['my_rating'] %} Ma note: {{ mov['my_rating'] }}{% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="card"></div>
+            {% endif %}
+            
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
