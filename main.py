@@ -6,14 +6,9 @@ import config as cfg
 root = "https://api.themoviedb.org/3"
 root2 = "https://api.themoviedb.org/4"
 
-movie_detail = "https://www.themoviedb.org/movie/"
-movies = "/discover/movie"
 genres = "/genre/movie/list"
 mylist = f"/list/{cfg.mylist}"
-req_token = "/auth/request_token"
-acc_token = "/auth/access_token"
 rated_movie = f"/account/{cfg.account_id}/movie/rated"
-image_root = "https://www.themoviedb.org/t/p/w220_and_h330_face"
 
 # connect db
 con = sqlite3.connect('movies.db')
